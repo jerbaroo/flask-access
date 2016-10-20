@@ -1,0 +1,8 @@
+language:
+    python
+python:
+    3.5
+install:
+    pip3 install flask
+script:
+    python3 -m unittest flask_access_test
