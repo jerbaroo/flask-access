@@ -1,0 +1,9 @@
+coverage
+flake8
+flake8-docstrings
+flake8-import-order
+flask
+mock
+nose
+nose-timer
+pep8-naming
