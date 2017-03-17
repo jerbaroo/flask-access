@@ -1,6 +1,6 @@
-# Flask-Access [![Build Status](https://travis-ci.org/barischj/flask_access.svg?branch=master)](https://travis-ci.org/barischj/flask_access)
+# Flask-Access [![CircleCI](https://img.shields.io/circleci/project/github/RedSparr0w/node-csgo-parser.svg)](https://circleci.com/gh/barischj/flask-access)
 
-A Flask extension to limit access to views.
+Easily control access to Flask endpoints.
 
 Works well with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
@@ -50,4 +50,4 @@ not logged-in, `flask_login.current_user` will return a
 `flask_login.AnonymousUserMixin` which does not have `has_access` implemented.
 
 ## Example
-For an example which includes a login/out system see [example.py]().
+For an example which includes a login/out system see [example/example.py]().

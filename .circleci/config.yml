@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/flask-access
+    docker:
+      - image: python:3.6.0
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: Run Tests
+          command: ./test.sh
