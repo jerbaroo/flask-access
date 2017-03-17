@@ -6,33 +6,40 @@ Works well with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
 ## Usage
 
-### Register a user loader
+### Protect endpoints
 
-Set a function **or** variable in `app.config[flask_access.CURRENT_USER]` which
-returns the current user.
+To require access rights, e.g. `"admin"`, for a view:
 
-With Flask-Login simply:
-
-`app.config[flask_access.CURRENT_USER] = flask_login.current_user`
-
-### User access logic
-
-Implement `has_access(self, access) -> bool` on your user class.
-
-There are no restrictions on the kind of access logic you implement.
-
-If a user does not have `has_access` implemented access will be denied.
-
-### Protect a view
-
-To require access rights e.g. `"admin"` for a view:
-
-```
+``` Python
 @app.route("/secret-code")
 @flask_access.require("admin")
 def secret_documents():
     return "Secret code: 1234"
 ```
+
+The access rights required for an endpoint can be anything you like, not just a
+string. You can pass in as many positional or keyword arguments as you like.
+
+### Register a user loader
+
+Set a function **or** variable in `app.config[flask_access.CURRENT_USER]` which
+returns the current user. When a client attempt to access a protected endpoint
+we use this to load the user whose access rights we then check.
+
+If you are using Flask-Login you can just do:
+
+`app.config[flask_access.CURRENT_USER] = flask_login.current_user`
+
+### User access logic
+
+Implement `has_access(self, *args, **kwargs) -> bool` on your user class.
+
+Implement any kind of access logic you like. The arguments this function
+receives are whatever you set in `@flask_access.require`, for the endpoint
+currently being checked.
+
+If a user does not have `has_access` implemented, or the function returns
+anything but `True`, then access will be denied.
 
 ### Access denied handler
 
@@ -50,4 +57,6 @@ not logged-in, `flask_login.current_user` will return a
 `flask_login.AnonymousUserMixin` which does not have `has_access` implemented.
 
 ## Example
-For an example which includes a login/out system see [example/example.py]().
+
+For an example which includes a login/out system
+see [example.py](example/example.py).
