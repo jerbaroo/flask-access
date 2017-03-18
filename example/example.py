@@ -28,7 +28,7 @@ def home():
 
 @app.route("/secret-code")
 @flask_access.require("top-secret")
-def secret_documents():
+def secret_code():
     return "Secret code: 1234"
 
 

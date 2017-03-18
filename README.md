@@ -8,12 +8,12 @@ Works well with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
 ### Protect endpoints
 
-To require access rights, e.g. `"admin"`, for a view:
+To require access rights (e.g. `"admin"`) for an endpoint:
 
 ``` Python
 @app.route("/secret-code")
 @flask_access.require("admin")
-def secret_documents():
+def secret_code():
     return "Secret code: 1234"
 ```
 
@@ -23,12 +23,14 @@ string. You can pass in as many positional or keyword arguments as you like.
 ### Register a user loader
 
 Set a function **or** variable in `app.config[flask_access.CURRENT_USER]` which
-returns the current user. When a client attempt to access a protected endpoint
-we use this to load the user whose access rights we then check.
+returns the current user. When a client attempts to access a protected endpoint
+we use this to load the user whose access rights we check.
 
 If you are using Flask-Login you can just do:
 
-`app.config[flask_access.CURRENT_USER] = flask_login.current_user`
+``` Python
+app.config[flask_access.CURRENT_USER] = flask_login.current_user
+```
 
 ### User access logic
 
@@ -47,7 +49,9 @@ The default access denied handler calls `flask.abort(403)`
 
 To set a custom access-denied handler:
 
-`app.config[flask_access.ABORT_FN] = custom_abort_fn`
+``` Python
+app.config[flask_access.ABORT_FN] = custom_abort_fn
+```
 
 ### Login required
 
