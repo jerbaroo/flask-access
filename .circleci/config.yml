@@ -12,3 +12,6 @@ jobs:
       - run:
           name: Run Tests
           command: ./test.sh
+      - run:
+          name: Codecov
+          command: codecov
