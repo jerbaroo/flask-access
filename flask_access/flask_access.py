@@ -21,13 +21,14 @@ def _current_user():
     return user
 
 
-def require(access):
+def require(*access_args, **access_kwargs):
     """Return a decorator to control access to a Flask endpoint."""
     def decorator(original_fn):
-        def new_fn(*args, **kwargs):
+        def new_fn(*fn_args, **fn_kwargs):
             user = _current_user()
-            if hasattr(user, "has_access") and user.has_access(access) is True:
-                return original_fn(*args, **kwargs)
+            if (hasattr(user, "has_access") and
+                    user.has_access(*access_args, **access_kwargs) is True):
+                return original_fn(*fn_args, **fn_kwargs)
             _abort()
         return new_fn
     return decorator

@@ -29,7 +29,7 @@ def home():
 @app.route("/secret-code")
 @flask_access.require("top-secret")
 def secret_code():
-    return "Secret code: 1234"
+    return "1234"
 
 
 @app.route("/logout")

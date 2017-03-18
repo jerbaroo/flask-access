@@ -14,7 +14,7 @@ To require access rights (e.g. `"admin"`) for an endpoint:
 @app.route("/secret-code")
 @flask_access.require("admin")
 def secret_code():
-    return "Secret code: 1234"
+    return "1234"
 ```
 
 The access rights required for an endpoint can be anything you like, not just a
