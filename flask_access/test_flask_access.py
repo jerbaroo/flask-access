@@ -1,4 +1,4 @@
-"""Tests for flask_acces.py."""
+"""Tests for flask_access.py."""
 
 import flask
 from flask_access import flask_access
@@ -7,6 +7,7 @@ from nose.tools import assert_equal, assert_not_equal
 
 
 class TestFlaskAccess:
+    """All of the tests for flask_access.py."""
 
     def setup(self):
         self.app = flask.Flask(__name__)
@@ -37,7 +38,7 @@ class TestFlaskAccess:
 
     def test_current_user_as_function_success(self):
         user = object()
-        user_fn = lambda: user  # noqa: E731
+        user_fn = lambda: user  # flake8: disable=E731
         self.app.config[flask_access.CURRENT_USER] = user_fn
         with self.app.app_context():
             assert_equal(user_fn(), flask_access._current_user())
