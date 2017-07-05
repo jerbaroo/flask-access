@@ -1,14 +1,14 @@
 # Flask-Access [![CircleCI](https://img.shields.io/circleci/project/github/barischj/flask-access.svg)](https://circleci.com/gh/barischj/flask-access) [![Codecov](https://img.shields.io/codecov/c/github/barischj/flask-access.svg)](https://codecov.io/gh/barischj/flask-access)
 
-Easily control access to Flask endpoints.
+Easily protect access to Flask endpoints.
 
-Works well with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
+Works nicely with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
 ## Usage
 
 ### Protect endpoints
 
-To require access rights (e.g. `"admin"`) for an endpoint:
+In this example the endpoint `"/secret-code"` requires `"admin"` rights:
 
 ``` Python
 @app.route("/secret-code")
@@ -17,16 +17,22 @@ def secret_code():
     return "1234"
 ```
 
-The access rights required for an endpoint can be anything you like, not just a
-string. You can pass in as many positional or keyword arguments as you like.
+You can require any combination of rights for an endpoint, the rights can be any
+type of object you like and you can use any number of positional or keyword
+arguments:
+
+``` Python
+@flask_access.require("boss", 7, funny=True, hair=False)
+```
 
 ### Register a user loader
 
-Set a function **or** variable in `app.config[flask_access.CURRENT_USER]` which
-returns the current user. When a client attempts to access a protected endpoint
-we use this to load the user whose access rights we check.
+When a user attempts to access a protected endpoint Flask-Access needs to load
+the respective user object to check their access rights. For this reason set a
+function **or** variable in `app.config[flask_access.CURRENT_USER]` that returns
+the current user object. If the user has no account simply return `None`.
 
-If you are using Flask-Login you can just do:
+If you are also using Flask-Login you can simply do:
 
 ``` Python
 app.config[flask_access.CURRENT_USER] = flask_login.current_user
@@ -34,14 +40,16 @@ app.config[flask_access.CURRENT_USER] = flask_login.current_user
 
 ### User access logic
 
-Implement `has_access(self, *args, **kwargs) -> bool` on your user class.
+When a user attempts to access an endpoint Flask-Access will load the user
+object `u` and run `u.has_access(rights)` where `rights` are what is required
+for the current endpoint.
 
-Implement any kind of access logic you like. The arguments this function
-receives are whatever you set in `@flask_access.require`, for the endpoint
-currently being checked.
+If a user object has no `has_access` method, or if `has_access` returns anything
+but `True`, then access will be denied.
 
-If a user does not have `has_access` implemented, or the function returns
-anything but `True`, then access will be denied.
+So you need to implement `has_access(self, rights) -> bool` on your user class.
+The `rights` that get passed in are the arguments you specified in
+`@flask_access.require` for the current endpoint.
 
 ### Access denied handler
 
@@ -56,9 +64,12 @@ app.config[flask_access.ABORT_FN] = custom_abort_fn
 ### Login required
 
 If you are using `flask_login.current_user` as your user loader then
-`flask_access.require` implies `flask_login.login_required`. Why? If a user is
-not logged-in, `flask_login.current_user` will return a
-`flask_login.AnonymousUserMixin` which does not have `has_access` implemented.
+`flask_access.require` implies `flask_login.login_required`, so no need to also
+specify the latter.
+
+Why? Well, if a user is not logged-in, `flask_login.current_user` will return a
+`flask_login.AnonymousUserMixin` which does not have `has_access` implemented,
+hence no access for the user.
 
 ## Example
 
