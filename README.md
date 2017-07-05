@@ -8,7 +8,7 @@ Works nicely with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
 ### Protect endpoints
 
-In this example the endpoint `"/secret-code"` requires `"admin"` rights:
+In this example the endpoint `"/secret-code"` requires a user to have `"admin"` rights:
 
 ``` Python
 @app.route("/secret-code")
