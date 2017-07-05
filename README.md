@@ -4,9 +4,7 @@ Easily protect access to Flask endpoints.
 
 Works nicely with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
-## Usage
-
-### Protect endpoints
+## Protect endpoints
 
 In this example the endpoint `"/secret-code"` requires a user to have `"admin"` rights:
 
@@ -25,7 +23,7 @@ arguments:
 @flask_access.require("boss", 7, funny=True, hair=False)
 ```
 
-### Register a user loader
+## Register a user loader
 
 When a user attempts to access a protected endpoint Flask-Access needs to load
 the respective user object to check their access rights. For this reason set a
@@ -38,7 +36,7 @@ If you are also using Flask-Login you can simply do:
 app.config[flask_access.CURRENT_USER] = flask_login.current_user
 ```
 
-### User access logic
+## User access logic
 
 When a user attempts to access an endpoint Flask-Access will load the user
 object `u` and run `u.has_access(rights)` where `rights` are what is required
@@ -51,7 +49,7 @@ So you need to implement `has_access(self, rights) -> bool` on your user class.
 The `rights` that get passed in are the arguments you specified in
 `@flask_access.require` for the current endpoint.
 
-### Access denied handler
+## Access denied handler
 
 The default access denied handler calls `flask.abort(403)`
 
@@ -61,7 +59,7 @@ To set a custom access-denied handler:
 app.config[flask_access.ABORT_FN] = custom_abort_fn
 ```
 
-### Login required
+## Login required
 
 If you are using `flask_login.current_user` as your user loader then
 `flask_access.require` implies `flask_login.login_required`, so no need to also
