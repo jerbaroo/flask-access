@@ -25,7 +25,7 @@ arguments:
 
 ## Register a user loader
 
-When a user attempts to access a protected endpoint Flask-Access needs to load
+When a user attempts to access a protected endpoint, Flask-Access needs to load
 the respective user object to check their access rights. For this reason set a
 function **or** variable in `app.config[flask_access.CURRENT_USER]` that returns
 the current user object. If the user has no account simply return `None`.
