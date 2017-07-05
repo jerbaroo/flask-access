@@ -38,16 +38,15 @@ app.config[flask_access.CURRENT_USER] = flask_login.current_user
 
 ## User access logic
 
-When a user attempts to access an endpoint Flask-Access will load the user
-object `u` and run `u.has_access(rights)` where `rights` are what is required
-for the current endpoint.
+When a user attempts to access an endpoint, Flask-Access will load the current
+user object `u` and run `u.has_access(rights)`, the `rights` that get passed in
+are the arguments you specified in `@flask_access.require` for the current
+endpoint.
 
 If a user object has no `has_access` method, or if `has_access` returns anything
 but `True`, then access will be denied.
 
 So you need to implement `has_access(self, rights) -> bool` on your user class.
-The `rights` that get passed in are the arguments you specified in
-`@flask_access.require` for the current endpoint.
 
 ## Access denied handler
 
