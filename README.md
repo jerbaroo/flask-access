@@ -28,7 +28,7 @@ please set a function *or* variable in
 `app.config[flask_access.CURRENT_USER]` that returns
 the current user. If the user has no account simply return `None`.
 
-If you are also using Flask-Login you can simply do:
+If you are also using Flask-Login you can simply :clap:
 
 ``` Python
 app.config[flask_access.CURRENT_USER] = flask_login.current_user
@@ -60,6 +60,8 @@ app.config[flask_access.ABORT_FN] = custom_abort_fn
 If you are using `flask_login.current_user` as your user loader then
 `flask_access.require` implies `flask_login.login_required`, so no need to also
 specify the latter.
+
+![](https://raw.githubusercontent.com/skullface/custom-chat-emoji/master/emoji/meme__roll-safe.png)
 
 Why? Well, if a user is not logged-in, `flask_login.current_user` will return a
 `flask_login.AnonymousUserMixin` which does not have `has_access` implemented,
