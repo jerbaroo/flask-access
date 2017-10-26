@@ -23,8 +23,9 @@ You could have other requirements:
 
 ## Register a user loader
 
-When need to associate requests with users that have. So please set a
-function *or* variable in `app.config[flask_access.CURRENT_USER]` that returns
+We need to associate requests with users that have permissions (or not). So
+please set a function *or* variable in
+`app.config[flask_access.CURRENT_USER]` that returns
 the current user. If the user has no account simply return `None`.
 
 If you are also using Flask-Login you can simply do:
