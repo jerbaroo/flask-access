@@ -1,12 +1,12 @@
 # Flask-Access [![CircleCI](https://img.shields.io/circleci/project/github/barischj/flask-access.svg)](https://circleci.com/gh/barischj/flask-access) [![Codecov](https://img.shields.io/codecov/c/github/barischj/flask-access.svg)](https://codecov.io/gh/barischj/flask-access)
 
-Easily protect access to Flask endpoints.
+Simple protection of Flask endpoints.
 
-Works nicely with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
+Integrates well with [Flask-Login](https://flask-login.readthedocs.io/en/latest/).
 
 ## Protect endpoints
 
-In this example the endpoint `"/secret-code"` requires a user to have `"admin"` rights:
+Here, the endpoint `"/secret-code"` requires a user to have `"admin"` rights:
 
 ``` Python
 @app.route("/secret-code")
@@ -15,20 +15,17 @@ def secret_code():
     return "1234"
 ```
 
-You can require any combination of rights for an endpoint, the rights can be any
-type of object you like and you can use any number of positional or keyword
-arguments:
+You could have other requirements:
 
 ``` Python
-@flask_access.require("boss", 7, funny=True, hair=False)
+@flask_access.require("boss", 7, funny=True, bald=None)
 ```
 
 ## Register a user loader
 
-When a user attempts to access a protected endpoint, Flask-Access needs to load
-the respective user object to check their access rights. For this reason set a
-function **or** variable in `app.config[flask_access.CURRENT_USER]` that returns
-the current user object. If the user has no account simply return `None`.
+When need to associate requests with users that have. So please set a
+function *or* variable in `app.config[flask_access.CURRENT_USER]` that returns
+the current user. If the user has no account simply return `None`.
 
 If you are also using Flask-Login you can simply do:
 
@@ -38,15 +35,14 @@ app.config[flask_access.CURRENT_USER] = flask_login.current_user
 
 ## User access logic
 
+In short, implement `has_access(self, rights) -> bool` on your user class.
+
 When a user attempts to access an endpoint, Flask-Access will load the current
 user object `u` and run `u.has_access(rights)`, the `rights` that get passed in
-are the arguments you specified in `flask_access.require` for the current
-endpoint.
+are the `"boss", 7, funny=True, bald=None` from above.
 
-If a user object has no `has_access` method, or if `has_access` returns anything
-but `True`, then access will be denied.
-
-So you need to implement `has_access(self, rights) -> bool` on your user class.
+If a user has no `has_access` method, or it doesn't return`True`, then access
+is denied :speak_no_evil:
 
 ## Access denied handler
 
@@ -70,5 +66,4 @@ hence no access for the user.
 
 ## Example
 
-For an example which includes a login/out system
-see [example.py](example/example.py).
+An [example](example/example.py) with a primitive login/out system.
