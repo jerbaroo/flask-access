@@ -61,8 +61,6 @@ If you are using `flask_login.current_user` as your user loader then
 `flask_access.require` implies `flask_login.login_required`, so no need to also
 specify the latter.
 
-![](https://raw.githubusercontent.com/skullface/custom-chat-emoji/master/emoji/meme__roll-safe.png)
-
 Why? Well, if a user is not logged-in, `flask_login.current_user` will return a
 `flask_login.AnonymousUserMixin` which does not have `has_access` implemented,
 hence no access for the user.
