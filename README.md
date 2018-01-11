@@ -1,4 +1,4 @@
-# Flask-Access [![CircleCI](https://img.shields.io/circleci/project/github/barischj/flask-access.svg)](https://circleci.com/gh/barischj/flask-access) [![Codecov](https://img.shields.io/codecov/c/github/barischj/flask-access.svg)](https://codecov.io/gh/barischj/flask-access)
+# Flask-Access [![CircleCI](https://circleci.com/gh/barischrooneyj/flask-access.svg?style=svg)](https://circleci.com/gh/barischrooneyj/flask-access)
 
 Simple protection of Flask endpoints.
 
@@ -39,11 +39,11 @@ app.config[flask_access.CURRENT_USER] = flask_login.current_user
 In short, implement `has_access(self, rights) -> bool` on your user class.
 
 When a user attempts to access an endpoint, Flask-Access will load the current
-user object `u` and run `u.has_access(rights)`, the `rights` that get passed in
-are the `"boss", 7, funny=True, bald=None` from above.
+user object `user` and run `user.has_access(rights)`, the `rights` that get
+passed in are the `"boss", 7, funny=True, bald=None` from above.
 
-If a user has no `has_access` method, or it doesn't return`True`, then access
-is denied :speak_no_evil:
+If a user doesn't have an `has_access` method, or the method doesn't return
+`True`, then access is denied :speak_no_evil:
 
 ## Access denied handler
 
