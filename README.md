@@ -25,12 +25,11 @@ You could have other requirements:
 
 Flas-Access needs to associate the current request with a user that
 has permission or not. Flask-Access will look for the current user
-in `app.config[flask_access.CURRENT_USER]`. You can assign a function
-to `app.config[flask_access.CURRENT_USER]` that returns the current
-user.
+in `app.config[flask_access.CURRENT_USER]`, here you can assign a
+function that returns the current user.
 
 ``` Python
-app.config[flask_access.CURRENT_USER] = my_current_user()`.
+app.config[flask_access.CURRENT_USER] = my_current_user().
 ```
 
 The type of the returned user can be whatever you are using in your
