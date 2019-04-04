@@ -23,15 +23,28 @@ You could have other requirements:
 
 ## Register a user loader
 
-We need to associate requests with users that have permissions (or not). So
-please set a function *or* variable in
-`app.config[flask_access.CURRENT_USER]` that returns
-the current user. If the user has no account simply return `None`.
-
-If you are also using Flask-Login you can simply :clap:
+Flas-Access needs to associate the current request with a user that
+has permission or not. Flask-Access will look for the current user
+in `app.config[flask_access.CURRENT_USER]`. You can assign a function
+to `app.config[flask_access.CURRENT_USER]` that returns the current
+user.
 
 ``` Python
+app.config[flask_access.CURRENT_USER] = my_current_user()`.
+```
+
+The type of the returned user can be whatever you are using in your
+application to model users already, the only condition is that the user
+class implements a method `has_access`. If the user has no account return
+`true` to allow access. Anything returned that is not true `true` or an
+instance of a class implementing `has_access` will have access denied.
+
+If you are also using Flask-Login you can simply apply the assignment
+below :clap:
+
+```
 app.config[flask_access.CURRENT_USER] = flask_login.current_user
+
 ```
 
 ## User access logic
