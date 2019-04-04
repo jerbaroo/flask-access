@@ -29,7 +29,7 @@ in `app.config[flask_access.CURRENT_USER]`, here you can assign a
 function that returns the current user.
 
 ``` Python
-app.config[flask_access.CURRENT_USER] = my_current_user().
+app.config[flask_access.CURRENT_USER] = my_current_user()
 ```
 
 The type of the returned user can be whatever you are using in your
