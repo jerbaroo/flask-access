@@ -36,8 +36,8 @@ app.config[flask_access.CURRENT_USER] = my_current_user()`.
 The type of the returned user can be whatever you are using in your
 application to model users already, the only condition is that the user
 class implements a method `has_access`. If the user has no account return
-`true` to allow access. Anything returned that is not true `true` or an
-instance of a class implementing `has_access` will have access denied.
+`True` to allow access. Anything other than `True` or an instance of a
+class implementing `has_access` will have access denied.
 
 If you are also using Flask-Login you can simply apply the assignment
 below :clap:
