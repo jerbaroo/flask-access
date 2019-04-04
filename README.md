@@ -29,7 +29,7 @@ in `app.config[flask_access.CURRENT_USER]`, here you can assign a
 function that returns the current user.
 
 ``` Python
-app.config[flask_access.CURRENT_USER] = my_current_user()
+app.config[flask_access.CURRENT_USER] = my_current_user_func
 ```
 
 The type of the returned user can be whatever you are using in your
@@ -64,7 +64,7 @@ The default access denied handler calls `flask.abort(403)`
 To set a custom access-denied handler:
 
 ``` Python
-app.config[flask_access.ABORT_FN] = custom_abort_fn
+app.config[flask_access.ABORT_FN] = my_custom_abort_func
 ```
 
 ## Login required
