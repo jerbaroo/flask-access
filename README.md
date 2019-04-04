@@ -42,7 +42,7 @@ instance of a class implementing `has_access` will have access denied.
 If you are also using Flask-Login you can simply apply the assignment
 below :clap:
 
-```
+``` Python
 app.config[flask_access.CURRENT_USER] = flask_login.current_user
 
 ```
