@@ -1,4 +1,4 @@
-# Flask-Access [![CircleCI](https://circleci.com/gh/barischrooneyj/flask-access.svg?style=svg)](https://circleci.com/gh/barischrooneyj/flask-access)
+# Flask-Access [![CircleCI](https://circleci.com/gh/jerbaroo/flask-access.svg?style=svg)](https://circleci.com/gh/jerbaroo/flask-access)
 
 Simple protection of Flask endpoints.
 
