@@ -1,9 +1,8 @@
 codecov
 coverage
-flake8<3  # https://github.com/jayvdb/flake8-putty/issues/14
+flake8
 flake8-docstrings
 flake8-import-order
-flake8-putty
 flask
 mock
 nose
